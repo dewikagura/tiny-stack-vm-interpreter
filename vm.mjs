@@ -233,10 +233,10 @@ const I = process.env.MAKEFUN_INPUT_DIR ?? '/input';
 const O = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 for (const id of readdirSync(I).sort()) {
   const r = run(
-    new Uint8Array(readFileSync(join(I, id, 'program.bin'))),
-    new Uint8Array(readFileSync(join(I, id, 'input.bin'))),
+    new Uint8Array(readFileSync(I+'/'+id+'/program.bin')),
+    new Uint8Array(readFileSync(I+'/'+id+'/input.bin')),
   );
-  mkdirSync(join(O, id), { recursive: true });
-  writeFileSync(join(O, id, 'stdout.bin'), r.out);
-  writeFileSync(join(O, id, 'exit.txt'), `${r.code}\n`);
+  mkdirSync(O+'/'+id, { recursive: true });
+  writeFileSync(O+'/'+id+'/stdout.bin', r.out);
+  writeFileSync(O+'/'+id+'/exit.txt', `${r.code}\n`);
 }
